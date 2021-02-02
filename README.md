@@ -92,3 +92,26 @@ import CommentDetail from "./components/CommentDetail";
 
 ## Components Props (Properties)
 > Props: System for passing data from a parent component to a child component. Communication between parent and child components.
+- Props is a data transferred as an object.
+
+1. Passing a prop to child component
+```js
+// Component     Name of prop    Value of the prop
+<CommentDetail   author=         "Malik"           />
+
+// Passing multiple attributes / props
+<CommentDetail 
+    attr1="Val1" 
+    attr2="val2" 
+    attr3="val3" 
+/>
+```
+
+2. Receiving Props
+```js
+const CommentDetail = (props) => {
+    return (
+        <div>{ props.author }</div>
+    )
+};
+```
