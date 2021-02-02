@@ -83,6 +83,62 @@ render(
 > import (The variable we want to assign this import to) from 'Path to the file we are importing'
 If `from` is directly a library name then it'll search from node_modules
 
+## React Events & Functions:
+
+```javascript
+    // In JSX
+    <button onClick={ this.funcName() }></button> // funcName will invoke on page load, at start
+    // VS
+    <button onClick={ this.funcName }></button>   // function will only load on Click
+    // Inside JS class
+    funcName(e){
+        console.log(e.target);
+    }
+    // React all events list
+    [React all events list](https://reactjs.org/docs/events.html#supported-events)
+```
+
+## `this` keyword
+
+> Most Important: `this` values / functions in a class will always be equal to the object who is calling the function or attr of a class.
+- this keyword is used to reference its class and its properties.
+- `this` considered as an objected of the same class where is is referenced.
+
+- You will face this error due to this issue: "Uncaught TypeError: Cannot read property 'xyz' of undefined at x:y"
+> Solution: Use arrow functions. They will automatically bind the value of `this` with the class. Or you can manually bind it in the constructor.
+```js
+constructor()
+{
+    this.someFunction = this.someFunction.bind(this);
+}
+
+// Or call it like so
+{ (event) => this.someFunction(event) }
+```
+
+```javascript
+    // 'this' keyword isn't work in simple functions (this.state)
+    simpleFunc(e){
+        // this won't work here
+        this.state
+    }
+    arrowFunc = (e) =>{
+        // this works here
+        this.state;
+    }
+
+    // Change data in state
+    arrowFunc = (e) =>{
+        // Do this good practice
+        this.setState({
+            var: 'New Value',
+        })
+        // VS bad practice
+        this.state.var = 'New Value';
+    }
+```
+
+
 # React Components
 
 ## Why we use components
@@ -224,6 +280,21 @@ MyComponent.defaultProps = {
 
 // Step 2: Use the child component within parent component. In above case 'ApprovalCard'
 { props.children }     // This will render this child component
+
+```
+
+5. Sending functions as props
+```js
+
+// 1. Sending function as a prop from parent component
+testFunction(arg)
+{
+    console.log(arg);
+}
+<TestComponent propFunction={this.testFunction} />
+
+// 2. Using prop function in child component
+<button onClick={ () => this.props.propFunction("hello") }></button>
 
 ```
 
