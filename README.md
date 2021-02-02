@@ -59,7 +59,7 @@ A react component is a Function / Class that produces HTML using JSX and Handles
 ## import / export
 
 > import (The variable we want to assign this import to) from 'Path to the file we are importing'
-- If from is directly a library name then it'll search from node_modules
+If from is directly a library name then it'll search from node_modules
 
 # React Components
 
