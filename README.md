@@ -57,6 +57,25 @@ A react component is a Function / Class that produces HTML using JSX and Handles
     // Print variables
     { var1 } { arr1 } { obj1.test }
 
+### Conditional Render JSX
+```js
+renderContent(){
+    if(1 > 2)
+    {
+        return "Some JSX";
+    }
+    else
+    {
+        return "Some JSX";
+    }
+}
+render(
+    <div className="craxy">
+        { renderContent() }
+    </div>
+)
+```
+
 # General
 
 ## import / export
@@ -71,12 +90,53 @@ If `from` is directly a library name then it'll search from node_modules
 2. Components Nesting
 3. Components Configurations
 
+## Component Lifecycle
+1. constructor()
+- Good place for initialization, data load and other one-time setup
+
+2. render() (Content displayed on screen)
+- Avoid using anything besides JSX
+
+3. componentDidMount()
+- Go place to do data loading! One-time invoke. 
+- Recommendation: Prefer componentDidMount() over constructor() for data loading.
+
+4. componentDidUpdate() => render() // Cycle
+- Good place to do more data loading when state/props change
+
+5. componentWillUnmount() 
+- Good place to do cleanup.
+
+* Other lifecycles which we rarely use.
+6. shouldComponentUpdate()
+7. getDerivedStateFromProps()
+8. getSnapshotBeforeUpdate()
+
+
 ## Types of Components
 
 1. Class Components
 - Can produce JSX to show content to the user.
 - Can use the Lifecycle Method system to run code at specific points in time.
 - Can use the 'state' system to update content on the screen.
+
+* Benefits:
+- Easier code organisation, easiet to handle user inputs and lifecycle hooks
+
+```js
+class App extends React.Component
+{
+    // Imp: This render() method executed several times.. Upon data change etcerta..
+    render()
+    {
+        return (
+            <div> A class based component </div>
+        )
+    }
+}
+```
+> `extends React.Component` has many built in functions to use.
+
 
 2. Functional Components
 - Can produce JSX to show content to the user. (In old days)
@@ -85,6 +145,14 @@ If `from` is directly a library name then it'll search from node_modules
 - Can produce JSX to show content to the user.
 - Can use the Hooks to run code at specific points in time.
 - Can use Hooks to access 'state' system and update content on screen.
+
+```js
+const Ap = () => {
+    return (
+        <div>A functional component</div>
+    )
+};
+```
 
 ## Creating a new component
 ```js
@@ -131,7 +199,17 @@ const CommentDetail = (props) => {
 };
 ```
 
-3. Sending Component in Prop
+3. Default Props
+- Sometimes we don't receive any props so we must set default values.
+- Set default props just above export statement
+```js
+MyComponent.defaultProps = {
+    name: "malik ateeq"
+}
+
+```
+
+4. Sending Component in Prop
 ```js
 // Step 1: Send Child Component, wrapped within parent component
 <ApprovalCard>
@@ -146,7 +224,46 @@ const CommentDetail = (props) => {
 
 // Step 2: Use the child component within parent component. In above case 'ApprovalCard'
 { props.children }     // This will render this child component
-v
 
+```
+
+# State in React
+> A state is a JS object that contains data relevant to a component.
+- Updating state on a component causes the component to (almost) instantly rerender.
+- State must be initialized when a component is created.
+- State can only be updated using the function `setState`
+
+1. Initialize State:
+```js
+// 1. Method #1
+// Inside Class component's constructor
+constructor(props)
+{
+    // Initiate React.Component's constructor with props
+    super(props);
+    
+    // Initiate state
+    // THIS IS THE ONLY TIME WE DO DIRECT ASSIGNMENT TO THE STATE..
+    this.state = {name: null };
+}
+
+// Method #2
+// Define state outside constructor.
+// It will automatically passed to parent constructor
+state = {lat: null, errorMessage: ""};
+
+```
+
+2. Update State:
+```js
+// Update the state `this` is automatically inherited when we use React Class component
+this.setState({ name: "malik ateeq" });
+// After that React component will be rerender...
+
+
+// Never ever do direct assignment
+// Cause data inconsistency
+// No go!!!!!
+this.state.name = "malik ateeq";
 
 ```

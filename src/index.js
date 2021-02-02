@@ -2,27 +2,58 @@ import React from "react";
 import ReactDOM from "react-dom";
 import CommentDetail from "./components/CommentDetail";
 import ApprovalCard from "./components/ApprovalCard";
+import SeasonDisplay from "./components/season/SeasonDisplay";
 // import faker from "faker";
 
-const App = () => {
-    return (
-        <div className="ui container comments">
+class App extends React.Component
+{
+    // State initiation
+    state = {lat: null, errorMessage: ""};
 
-            <ApprovalCard>
-                Are you sure you want to do this?
-            </ApprovalCard>
+    componentDidMount()
+    {
+        // Get User's location
+        window.navigator.geolocation.getCurrentPosition(
+            // 1st Arg: Success Callback
+            (position) => 
+            {
+                this.setState({ lat: position.coords.latitude });
+            },
+            // 2nd Arg: Failure Callback
+            (err) => 
+            {
+                this.setState({errorMessage: err.message});
+            }
+        );
+    }
+    render()
+    {
+        if(this.state.errorMessage && !this.state.lat)
+        {
+            return (
+                <div>
+                    Error: { this.state.errorMessage } 
+                </div>
+            )
+        }
+        else if(!this.state.errorMessage && this.state.lat)
+        {
+            return (
+                <div>
+                    <SeasonDisplay lat={this.state.lat} />
+                </div>
+            )
+        }
+        else
+        {
+            return (
+                <div>
+                    Loading... 
+                </div>
+            )
+        }
 
-            <ApprovalCard>
-                <CommentDetail 
-                    author="Malik2" 
-                    timeAgo="Today at 05:36 PM" 
-                    content="A tedious post" 
-                    avatar="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
-                />
-            </ApprovalCard>
-
-        </div>
-    )
-};
+    }
+}
 
 ReactDOM.render(<App />, document.getElementById("root"));
