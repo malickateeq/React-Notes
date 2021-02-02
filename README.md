@@ -9,6 +9,9 @@
     npx create-react-app my-app
 ```
 
+## Plugins for VS Code
+- ES7 React/Redux/GraphQL/React-Native snippets
+
 # What is?
 > ***Babel:*** Babel is an open-source JavaScript transcompiler that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript that can be run by older JavaScript engines.
 
@@ -59,7 +62,33 @@ A react component is a Function / Class that produces HTML using JSX and Handles
 ## import / export
 
 > import (The variable we want to assign this import to) from 'Path to the file we are importing'
-If from is directly a library name then it'll search from node_modules
+If `from` is directly a library name then it'll search from node_modules
 
 # React Components
 
+## Why we use components
+1. Components Resuability
+2. Components Nesting
+3. Components Configurations
+
+## Creating a new component
+```js
+// 1. Create a new file with same name as component name.
+import React from "react";
+const CommentDetail = () => {
+    return (
+        <div>JSX</div>
+    )
+};
+// Export to make it available.
+export default CommentDetail;
+
+// 2. Import this component anywhere, plug-n-play
+import CommentDetail from "./components/CommentDetail";
+// Use - Treat it as a JSX tag
+// As it will be inside App or root component thus considered Nested component, Parent -> child components
+<CommentDetail />
+```
+
+## Components Props (Properties)
+> Props: System for passing data from a parent component to a child component. Communication between parent and child components.
