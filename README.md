@@ -71,6 +71,21 @@ If `from` is directly a library name then it'll search from node_modules
 2. Components Nesting
 3. Components Configurations
 
+## Types of Components
+
+1. Class Components
+- Can produce JSX to show content to the user.
+- Can use the Lifecycle Method system to run code at specific points in time.
+- Can use the 'state' system to update content on the screen.
+
+2. Functional Components
+- Can produce JSX to show content to the user. (In old days)
+
+- (Now) Previously updated: React Functional components be able to use Class components' features via `Hooks System`.
+- Can produce JSX to show content to the user.
+- Can use the Hooks to run code at specific points in time.
+- Can use Hooks to access 'state' system and update content on screen.
+
 ## Creating a new component
 ```js
 // 1. Create a new file with same name as component name.
@@ -114,4 +129,24 @@ const CommentDetail = (props) => {
         <div>{ props.author }</div>
     )
 };
+```
+
+3. Sending Component in Prop
+```js
+// Step 1: Send Child Component, wrapped within parent component
+<ApprovalCard>
+    // You can place here Components, JSX or anything. :) 
+    <CommentDetail 
+        author="Malik2" 
+        timeAgo="Today at 05:36 PM" 
+        content="A tedious post" 
+        avatar="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+    />
+</ApprovalCard>
+
+// Step 2: Use the child component within parent component. In above case 'ApprovalCard'
+{ props.children }     // This will render this child component
+v
+
+
 ```
