@@ -455,3 +455,41 @@ const response = await unsplash.get("/search/photos", {
 ```
 
 # React List Rendering
+
+- Rule1: Each list item must have a unique key.
+
+# refs in React
+
+- ref short for reference.
+- refs use to access DOM elements directly.
+
+1. Create refs in the constructor.
+2. Assign them to instance variable.
+3. Then pass to a particular JSX element as prop. 
+* No need to use `state` instead of props cause they (refs) are not going to change over time.
+
+1. Create a Ref
+```js
+constructor(props){
+    super(props);
+    // Creating a ref
+    this.imageRef = React.createRef();
+}
+```
+
+2. Using the Ref
+```js
+componentDidMount(){
+    // Get the current element
+    // Now you can access all attributes of this element
+    console.log(this.imageRef.current);
+}
+```
+
+3. Best use case
+- Load, download or fetch a resource from server
+
+```js
+this.imageRef.current.addEventListener("load", someCallbackFunction);
+
+```
