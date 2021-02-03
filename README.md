@@ -336,8 +336,8 @@ MyComponent.defaultProps = {
 ```
 
 5. Sending functions as props
+- You can send these functions in props to any level of hierarchical components and they will still invoke parent function from any level. 
 ```js
-
 // 1. Sending function as a prop from parent component
 testFunction(arg)
 {
@@ -493,3 +493,18 @@ componentDidMount(){
 this.imageRef.current.addEventListener("load", someCallbackFunction);
 
 ```
+
+# Hooks System in React
+
+- Hooks system let us use `Class Component` features and functionalities in `Functional Components`.
+
+1. useState: 
+> Function that lets you use *state* in a Functional Component,
+
+2. useEffect:
+> Function that lets you use something like *LifeCycle Methods* in a Functional Component.
+
+3. useRef:
+> Function that lets you create a *ref* in a Functional Component.
+
+*. useContext, useReducer, useCallback, useMemo, useImperativeHandle, useLayoutEffect, useDebugValue
