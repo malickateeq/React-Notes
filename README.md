@@ -83,6 +83,31 @@ render(
 > import (The variable we want to assign this import to) from 'Path to the file we are importing'
 If `from` is directly a library name then it'll search from node_modules
 
+## Tips
+1. Initialize arrays with `[]` instead of `null` in this way you can use default array functions on empty array.
+```js
+state = { images: [] };
+```
+
+## Array Functions
+```js
+// push() Methos
+arr1.push("New item");
+
+// map() Can Iterate an array and return a new array
+const newArr = arr1.map( (element) => {
+    // If you return true it will add it to new array
+    if(element > 10)
+        return true;
+    
+    // Manipulated array element
+    if(element > 10)
+        return `<b> ${element} is Greate than 10.</b>`;
+});
+
+
+```
+
 ## React Events & Functions:
 
 ```javascript
@@ -137,7 +162,34 @@ constructor()
         this.state.var = 'New Value';
     }
 ```
+### `this` scope in callback function
 
+```js
+// Error
+async onSearchSubmit(term)
+{
+    // Here `this` is props object instead of React class referenced `this`
+    // Pro: Now here `this` reference to `props` from where it is called.
+    // this.props.onSearchSubmit(term)..
+    // Pro Tip: Look left side of calling function or object to know that actual value of this.. 
+    const response = await axios.get("https://api.unsplash.com/search/photos", {
+        params: {
+            query: term
+        },
+        headers: {
+            Authorization: "Client-ID XnTOONdIzg04HiRBnEIz2cwYkeEjEBBkF3OHUOT17RY",
+        }
+    });
+    // Error: this.setState is not a function
+    this.setState({ images: response.data.results});
+}
+
+// To Fix
+onSearchSubmit = async () => {
+    ...
+}
+
+```
 
 # React Components
 
@@ -338,3 +390,68 @@ this.setState({ name: "malik ateeq" });
 this.state.name = "malik ateeq";
 
 ```
+
+# Http Requests
+- Option1: `axios` 3rd party package. (Recommended)
+- Option2: `fetch` built-in in modern browsers.
+
+## Install axios
+- `npm install --save axios`
+- `--save` flag means, list this package in package.json for future updates/installations.
+
+## Make a Request
+- Axios request is an asychronous request.
+```js
+// Method#1 to handle async request via callback functions.
+axios.get("https://api.unsplash.com/search/photos", 
+{
+    params: {
+        query: "Labrador"
+    },
+    headers: {
+        Authorization: "Client-ID XnTOONdIzg04HiRBnEIz2cwYkeEjEBBkF3OHUOT17RY",
+    }
+})
+.then(() => {})
+.catch(() => {});
+
+// Method#2 to handle async request via `await` keyword
+// Rule#1: Put `async` before the main function.
+// Rule#2 Put `await` before making the request.
+async theMainfunc()
+{
+    const response = await axios.get("https://api.unsplash.com/search/photos", 
+    {
+        params: {
+            query: "Labrador"
+        },
+        headers: {
+            Authorization: "Client-ID XnTOONdIzg04HiRBnEIz2cwYkeEjEBBkF3OHUOT17RY",
+        }
+    });
+}
+
+```
+
+## Create a custom client request configurations Or Refactoring
+
+- Create a new file `src/api/unsplash.js`
+- Create a preconfigured axios client instance and use.
+```js
+// 1. Create a client
+export default axios.create({
+    baseURL: "https://api.unsplash.com",
+    // Set Headers
+    headers: {
+        Authorization: "Client-ID XnTOONdIzg04HiRBnEIz2cwYkeEjEBBkF3OHUOT17RY",
+    }
+});
+
+// 2. Import and use
+const response = await unsplash.get("/search/photos", {
+    params: { query: term },
+});
+
+```
+
+# React List Rendering
