@@ -122,6 +122,29 @@ const newArr = arr1.map( (element) => {
     // React all events list
     [React all events list](https://reactjs.org/docs/events.html#supported-events)
 ```
+## React Fragments
+- We use React Fragment when we don't want to add a div for including key or any other purpose.
+- Its purpose is to hold or wrap the content within.
+```js
+<React.Fragment key={user.id}>
+    ...
+</React.Fragment>
+
+```
+
+## Array Destructuring
+- Array destructuring is use to get data in variables from an array using a specific syntax.
+```js
+// An array
+const colors = ["red", "green", "blue"];
+
+// Array destructuring syantax
+// Remember below it is NOT making an array.
+// Inside cost [] we name variables to store corresponding values..
+const [ firstElement, secondColor, var3 ] = colors;
+
+console.log(secondColor);       // Output: green
+```
 
 ## `this` keyword
 
@@ -508,3 +531,40 @@ this.imageRef.current.addEventListener("load", someCallbackFunction);
 > Function that lets you create a *ref* in a Functional Component.
 
 *. useContext, useReducer, useCallback, useMemo, useImperativeHandle, useLayoutEffect, useDebugValue
+
+## Functional Component with Hooks System
+
+- Same way to receive props like in Class Componentss
+
+1. Functional Component ProtoType
+```js
+import React from 'react';
+import Accordion from './Accordion';
+const App = () => {
+    return (
+        <div>
+            <Accordion />
+        </div>
+    )
+};
+export default App;
+```
+
+## `useState` hook in Functional Component
+
+```js
+// 1. Import that hook
+import { useState } from "react";
+
+// 2. Inside func component
+// Imp: Please refer "Array Destructuring" in #General section
+// Here we are pull
+const [ activeIndex, setActiveIndex ] = useState(null);
+```
+* Explaination of Above Syntax:
+- Variable: `activeIndex` is a variable inside State. It can be anything.
+- Function: `setActiveIndex` is a function to update / set value of `activeIndex` variable. Again we can name it anything.
+- `[ activeIndex, setActiveIndex ]` setting like that make both of them bound to eachother. 
+- Function: `useState` function is hook to State system.
+- `null` It is the default or initial value for the varialbe `activeIndex`.
+

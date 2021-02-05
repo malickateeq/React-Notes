@@ -1,29 +1,23 @@
-import React, { Component } from 'react';
-import unsplash from "../api/unsplash";
-import SearchBar from "./SearchBar";
-import ImageList from "./ImageList";
+import React from 'react';
+import Accordion from './Accordion';
 
-export default class App  extends Component 
-{
-    // Initialize the state object
-    // Initialize it with array to use array functions like map and avoid errors
-    state = { images: [] };
-    
-    onSearchSubmit = async (term) =>
+const items = [
     {
-        // Here `this` is onSearchSubmit function event
-        const response = await unsplash.get("/search/photos", {
-            params: { query: term },
-        });
-        this.setState({ images: response.data.results});
-    }
-    render()
+        "title": "What is this?",
+        "content": "This is that.."
+    },
     {
-        return (
-            <div className="ui container" style={{ marginTop: "20px" }}>
-                <SearchBar onSearchSubmit={this.onSearchSubmit} />
-                <ImageList images={this.state.images} />
-            </div>
-        )
+        "title": "What are you?",
+        "content": "I am what what you are."
     }
-}
+];
+
+const App = () => {
+    return (
+        <React.Fragment>
+            <Accordion items={items} />
+        </React.Fragment>
+    );
+};
+
+export default App;
