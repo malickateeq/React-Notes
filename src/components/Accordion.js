@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const Accordion = (props) => 
 {
-    const [ activeIndex, setActiveIndex ] = useState(null);
+    const [ activeIndex, setActiveIndex ] = useState(0);
 
     const onTitleClick = (index) =>
     {
@@ -11,15 +11,16 @@ const Accordion = (props) =>
 
     const renderedList = props.items.map((item, index) => 
     {
+        const active = index === activeIndex ? "active" : "";
         return <div key={item.index}>
             <div 
-                className="title active"
+                className={`title ${active}`}
                 onClick={ () => { onTitleClick(index) } }
             >
                 <i className="dropdown icon"></i>
                 { item.title }
             </div>
-            <div className="content active">
+            <div className={`content ${active}`}>
                 <p> { item.content } </p>
             </div>
         </div>;
@@ -27,7 +28,6 @@ const Accordion = (props) =>
     return (
         <div className="ui styled accordion">
             { renderedList }
-            <h1> { activeIndex } </h1>
         </div>
     )
 }

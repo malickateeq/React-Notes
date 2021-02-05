@@ -560,6 +560,7 @@ import { useState } from "react";
 // Imp: Please refer "Array Destructuring" in #General section
 // Here we are pull
 const [ activeIndex, setActiveIndex ] = useState(null);
+setActiveIndex(index);
 ```
 * Explaination of Above Syntax:
 - Variable: `activeIndex` is a variable inside State. It can be anything.
@@ -568,3 +569,19 @@ const [ activeIndex, setActiveIndex ] = useState(null);
 - Function: `useState` function is hook to State system.
 - `null` It is the default or initial value for the varialbe `activeIndex`.
 
+*** The above method is repeated in order to add another state variable. ***
+
+### Pro Note
+```js
+// These lines are inside functional component
+const [ activeIndex, setActiveIndex ] = useState(null);
+setActiveIndex(index);
+
+// So when we change state via `setActiveIndex(index)` function the entire component will be rerender
+
+// Don't you thik so it will again reset the `activeIndex` value to null again here?
+const [ activeIndex, setActiveIndex ] = useState(null);
+
+// Upon re-rendering it will not use this default `null` value rather it will use the `setActiveIndex(index)` index value
+// ... on re-rendering
+```
