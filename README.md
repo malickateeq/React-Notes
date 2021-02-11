@@ -146,6 +146,12 @@ const [ firstElement, secondColor, var3 ] = colors;
 console.log(secondColor);       // Output: green
 ```
 
+## Render a string as JSX content
+- A react hidden way to do so.
+```js
+<span dangerouslySetInnerHTML={{ __html: htmlContentVariable }}></span>
+```
+
 ## `this` keyword
 
 > Most Important: `this` values / functions in a class will always be equal to the object who is calling the function or attr of a class.
@@ -584,4 +590,53 @@ const [ activeIndex, setActiveIndex ] = useState(null);
 
 // Upon re-rendering it will not use this default `null` value rather it will use the `setActiveIndex(index)` index value
 // ... on re-rendering
+```
+
+## `useEffect` hook in Functional Component
+- We can configure `useEffect` hook to run code at following Life Cycle points.
+1. When the component is rerendered **for the first time only**.    []
+2. When the component is rerendered **for the first time and whenever it rerenders**.   ...nothing...
+3. When the component is rerendered **(for the first time) AND (whenever it rerenders AND a piece of data has changed)**.   [data]
+
+```js
+import { useEffect } from 'react';
+// 1. Run for the first time only
+useEffect( () => { ... }, []);
+
+// 2. Runs for the first time and whenever it rerenders
+useEffect( () => { ... });
+
+// 2. Runs For the first time, AND (whenever it rerenders AND a piece of data has changed)
+useEffect( () => { ... }, [var1, var2]);
+``` 
+- The function in first argument can not be marked as `async`.
+- Put the async function inside `useEffect` to prevent race conditions.
+
+### Make async request in useEffect hook
+1. Approach#1 Store then invoke.
+```js
+// Store the function in a variable
+useEffect(() => {
+    const search = async () => {
+        await axios.get("#");
+    }
+    search();
+}, []);
+```
+
+2. Approach#2 Define and invoke (define)(run)
+```js
+// Define a function inside () then call this function right-away.
+useEffect(() => {
+    (async () => {
+        await axios.get("#");
+    })();
+}, []);
+```
+
+3. Approach#3 Use default promises
+```js
+useEffect(() => {
+    axios.get("#").then(function).catch(function);
+}, []);
 ```
