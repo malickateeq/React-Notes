@@ -132,6 +132,29 @@ const newArr = arr1.map( (element) => {
 
 ```
 
+## Timer in JS
+```js
+// 1. Set Timer
+const id = setTimeout(()=>{}, 5000);
+clearTimeout(id);   // id = unique id for this timer.
+
+```
+
+## Event Bubbling
+> Event bubbling is the process of sending an event from child to all the way towards the root element.
+- When the event bubble-up or expand it will look for `onClick` event handler. Whichever element has handled this event will be called or executed.
+- All browsers has this capability by default.
+- Pro event bubling
+```js
+// 1. Define event handler for body tag.
+
+// 2. Trigger event from a child element with a reference
+
+// 3. Match reference for body event handler and perform actions accordingly.
+
+
+```
+
 ## Array Destructuring
 - Array destructuring is use to get data in variables from an array using a specific syntax.
 ```js
@@ -640,3 +663,31 @@ useEffect(() => {
     axios.get("#").then(function).catch(function);
 }, []);
 ```
+
+### Use CLEANUP function in `useEffect` hook
+- The clean-up function will be **called before rerendering**
+- We can use previous state values.
+- It will not run for the first render 
+```js
+
+useEffect(() => {
+    (async () => {
+        
+        // CLEAN UP function
+        return () => {
+            console.log("CLEANUP");
+        };
+    })();
+});
+
+```
+
+### Pro: Warning in `useEffect` hook for dependent variables
+> Warning: React Hook useEffect has a missing dependency: 'someVariable'. Either include it or remove the dependency array.
+- You can append this `someVariable` in useEffect 2nd argument to solve this issue but we don't want to list all the variables there all the time.
+- OR, use debouncedValue to queue in changes.
+- Video Reference: 12 Folder, 36th Video.
+
+
+## `useRef` hook in Functional Component
+

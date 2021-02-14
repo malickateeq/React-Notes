@@ -5,13 +5,14 @@ import React, { useState, useEffect } from 'react';
 const Search = (props) => 
 {
     const [term, setTerm] = useState("pakistan");
+    const [debouncedTerm, setDebouncedTerm] = useState(term);
     const [results, setResults] = useState([]);
-    console.log( results );
+
 
     useEffect( () => 
     {
         // Make an async request
-        (async () => {
+        const search  = async () => {
             const {data} = await axios.get("https://en.wikipedia.org/w/api.php", {
                 params: {
                     action: "query",
@@ -21,13 +22,31 @@ const Search = (props) =>
                     srsearch: term,
                 }
             });
-            setResults(data.query.search);
-        })();
+            
+            if(data.query.search)
+            {
+                console.log(data.query.search);
+                setResults(data.query.search);
+            }
+        };
+        const timeoutId = setTimeout(()=>{
+            if(term)
+                search();
+        }, 1000);
+
+        // CLEAN UP function
+        return () => {
+            console.log("CLEANUP");
+            clearTimeout(timeoutId);
+        };
     }, [term]);
 
     const renderedResults = results.map((result, index) => {
         return (
             <div className="item" key={index}>
+                <div className="right floated content">
+                    <a href={`https://en.wikipedia.org?curid=${result.pageid}`} className="ui botton">Go</a>
+                </div>
                 <div className="content">
                     <div className="header">
                         { result.title }
