@@ -142,6 +142,7 @@ clearTimeout(id);   // id = unique id for this timer.
 
 ## Event Bubbling
 > Event bubbling is the process of sending an event from child to all the way towards the root element.
+> Event Execution Ordering: First JS events from most child to the parent THEN React events from child to the parent.
 - When the event bubble-up or expand it will look for `onClick` event handler. Whichever element has handled this event will be called or executed.
 - All browsers has this capability by default.
 - Pro event bubling
@@ -154,6 +155,7 @@ clearTimeout(id);   // id = unique id for this timer.
 
 
 ```
+* Events added but JS' `addEventListener` always called first then React listeners called. 
 
 ## Array Destructuring
 - Array destructuring is use to get data in variables from an array using a specific syntax.
@@ -691,3 +693,8 @@ useEffect(() => {
 
 ## `useRef` hook in Functional Component
 
+> Direct reference to a DOM element.
+
+1. Create a react reference: `const ref = useRef();`
+2. Bind it to a JSX element: `<div ref={ref} class="parent"></div>`
+3. Refer / Use it in app: `console.log(ref.current)`
