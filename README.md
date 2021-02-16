@@ -76,7 +76,23 @@ render(
 )
 ```
 
+# Pure JS Things
+
+## `window.location` object
+- `window.location` object contains information related to routing.
+
 # General
+
+## Custom Events
+```js
+// 1. Create and emit an event
+const navEvent = new PopStateEvent("popstate");
+window.dispatchEvent(navEvent);
+
+// 2. Listen to that event
+
+
+```
 
 ## import / export
 
