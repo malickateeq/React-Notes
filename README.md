@@ -714,3 +714,44 @@ useEffect(() => {
 1. Create a react reference: `const ref = useRef();`
 2. Bind it to a JSX element: `<div ref={ref} class="parent"></div>`
 3. Refer / Use it in app: `console.log(ref.current)`
+
+## Custom Hooks
+- Best way to create reusable code in a React app (besides components)
+- Created by extracting hook-related code out of a function component
+- Custom hooks always make use of at least one primitive hook internally
+
+1. Create a Custom Hook
+```js
+// src/hooks/useVideos.js follow React hooks naming convention.
+
+import {useState, useEffect} from "react";
+
+const useVideos = (defaultValue) => {
+    const [var, setVar] = useState(defaultValue);
+
+    changeValueGetData(defaultValue)
+    {
+        // some fetching
+        setVar();
+    }
+    // api request.
+    // set var data.
+
+    // Method#1: Return in Array values as in React
+    return [videos, changeValueGetData];
+
+    // Method#2 Return in object mostly used in JS community
+    return {videos, changeValueGetData};
+};
+export default useVideos;
+```
+
+2. Use Custom Hook
+```js
+import useVidoes from "src/hooks/useVideos"
+
+const [videos, changeValueGetData] = useVideos("defaultValue");
+// OR
+const object = useVideos("defaultValue");
+
+```
