@@ -755,3 +755,9 @@ const [videos, changeValueGetData] = useVideos("defaultValue");
 const object = useVideos("defaultValue");
 
 ```
+
+# React Deployment
+
+> Create-React-App => Deployment Bundle (index.html, bundle.js, images.jpg*, index.css) => (Host) Upload previous to Deployment Target => LIVE!!!
+
+* For free hosting of static sites. 1. VERSEL, 2. NETLIFY (Video: 15/2)
