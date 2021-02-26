@@ -761,3 +761,92 @@ const object = useVideos("defaultValue");
 > Create-React-App => Deployment Bundle (index.html, bundle.js, images.jpg*, index.css) => (Host) Upload previous to Deployment Target => LIVE!!!
 
 * For free hosting of static sites. 1. VERSEL, 2. NETLIFY (Video: 15/2)
+
+# React Router
+
+There're four different packages from React for routing
+
+1. `react-router`: Core navigation library - we don't install this manually
+2. `react-router-dom`: Navigation for DOM-based apps. We use mostly in web applicaitons.
+3. `react-router-native`: Navigation for react native apps
+4. `react-router-redux`: Binding between Redux and React Router (Not necessary, ignore it exists) 
+
+### Set Up React Router Package
+
+1. Install the package: `npm install react-router-dom`
+
+2. Setup in App.js
+```js
+import {BrowserRouter, Route, Link} from "react-router-dom";
+
+const App = () =>
+{
+    return (
+        <div>
+            <BrowserRouter>
+                <div>
+                    // Navigation Links
+                    <Link to="/" > Page One </Link>
+                    <Link to="/page-two" > Page Two </Link>
+
+                    // Render Route Components Here
+                    <Route path="/" exact component={PageOne} />
+                    <Route path="/page-two" component={PageTwo} />
+                </div>
+            <BrowserRouter/>
+        </div>
+    );
+}
+```
+
+### BrowserRouter (A component)
+- listens to `History` for changes to the URL.
+- Keeps track of the address bar in your browser.
+- Renders components according to URL patterns.
+- BroserRouter component also communicates with the Router.
+
+### Route (A component)
+- Route components communicates with the BrowserRouter and decides whether to render a component or not.
+- Following are the Route component props explaination.
+1. `path`: It decides whether to render a component or not depending upon the URL pattern
+2. `exact` keyword: It will match exact URL pattern with `path`. The default is to check for if URL pattern contains `path`.
+3. `component`: It renders this component upon matching the path.
+
+### Prop notes
+- If two or more routes have same `path` then they all will be rendered.
+- Without `exact` keyword path="/users" and path="/users/*" will always render path="/users" component whatsoever.
+- Mentioning any property in JSX like `exact` as porp is just like `exact={true}` in JSX.
+
+### Link
+- Link is just like <a> tag in HTML. It works but will reload the react app entirely in browser. It will trigger Route.
+```js
+<Link to="/users" > Users </Link>
+```
+
+## Router Types
+
+- It just differentiates on the basis of deciding factor of the `path` prop.
+- It really matters on the time of **deployment** of React App.
+
+### Browser Router
+- Browser Router is the default router which we have seen above.
+- Uses everything after the TLD (.com, .net etc) or the port as the `path`
+- e.g; URL="localhost:3000/pagetwo" here path="/pagetwo" 
+
+- On traditional server /xyz returns `404` upon not found but the react-server return `index.html` not 404.
+- On deployment make sure server return `indx.html` upon 404 not found cause it (request) will be handle on client side.
+
+
+### Hash Router
+- Uses everything after a # as the `path`
+- Automatically put # after TLD.
+- e.g; URL="localhost:3000/#/pagetwo" here path="/pagetwo"
+
+- The reason of setting # is that we will configure our server to not look after the #
+- Pro: Upon "localhost:3000/#/pagetwo" the network request will be "localhost:3000/" the "#/pagetwo" part skipped. ;) 
+- You can use this on GitHub pages to avoid server request interception.
+
+### Memory Router
+- Don't use the URL to track navigation.
+- One URL for all components.
+- e.g; URL="localhost:3000/" here path="/pagetwo"
