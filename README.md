@@ -801,6 +801,7 @@ const App = () =>
 
 ### BrowserRouter (A component)
 - listens to `History` for changes to the URL.
+- Within this component the Router components will be rendered.
 - Keeps track of the address bar in your browser.
 - Renders components according to URL patterns.
 - BroserRouter component also communicates with the Router.
@@ -819,6 +820,7 @@ const App = () =>
 
 ### Link
 - Link is just like <a> tag in HTML. It works but will reload the react app entirely in browser. It will trigger Route.
+- All Route Links must be within BrowserRouter component.
 ```js
 <Link to="/users" > Users </Link>
 ```
